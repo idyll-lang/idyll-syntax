@@ -1,0 +1,26 @@
+{
+    "name": "idyll-syntax",
+    "displayName": "idyll-syntax",
+    "description": "Syntax support for idyll-lang",
+    "version": "0.0.1",
+    "publisher": "mathisonian",
+    "engines": {
+        "vscode": "^1.5.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "idyll",
+            "aliases": ["Idyll", "idyll"],
+            "extensions": [".idl",".idyl",".idyll"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "idyll",
+            "scopeName": "source.idyll",
+            "path": "./syntaxes/idyll.tmLanguage.json"
+        }]
+    }
+}

@@ -4,13 +4,28 @@
 	"patterns": [
 		{
 			"include": "#closedcomponent"
+		},
+		{
+			"include": "#componentopen"
+		},
+		{
+			"include": "#componentclose"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#codeblock"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.idyll",
-				"match": "\\b(var|data)\\b"
+				"match": "\b(var|data)\b"
 			}]
 		},
 		"componentopen": {
@@ -48,7 +63,6 @@
 				}
 			]
 		},
-
 		"closedcomponent": {
 			"name": "component.closed.idyll",
 			"begin": "\\[",
@@ -65,6 +79,19 @@
 				},
 				{
 					"include": "#numbers"
+				}
+			]
+		},
+		"comments" : {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.idyll",
+					"match": "\\/\\/.*$"
+				},
+				{
+					"begin": "\\\/\\*",
+					"end": "\\*\\\/",
+					"name": "comment.block.idyll"
 				}
 			]
 		},
@@ -115,6 +142,15 @@
 							"name": "entity.other.attribute-name"
 						}
 					}
+				}
+			]
+		},
+		"codeblock": {
+			"begin": "```",
+			"end": "```",
+			"patterns": [
+				{
+					"include": "source.idyll"
 				}
 			]
 		}

@@ -3,13 +3,7 @@
 	"name": "Idyll",
 	"patterns": [
 		{
-			"include": "#closedcomponent"
-		},
-		{
 			"include": "#componentopen"
-		},
-		{
-			"include": "#componentclose"
 		},
 		{
 			"include": "#keywords"
@@ -30,8 +24,28 @@
 		},
 		"componentopen": {
 			"name": "component.open.idyll",
-			"begin": "\\[",
-			"end": "\\]",
+			"begin": "(\\[)([a-zA-Z0-9]+)",
+			"end": "(\\])",
+			"beginCaputures" : {
+				"1" :{
+					"name": "punctuation.definition.tag.begin.idyll"
+				},
+				"2": {
+					"name": "entity.name.tag.idyll"
+				}
+			},
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.tag.end.idyll"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#idyllattributes"
+				}
+			]
+		},
+		"idyllattributes": {
 			"patterns": [
 				{
 					"include": "#strings"
@@ -55,7 +69,7 @@
 		},
 		"componentclose": {
 			"name": "component.open.idyll",
-			"begin": "\\[\\s*/",
+			"begin": "\\[\\\/",
 			"end": "\\]",
 			"patterns": [
 				{
@@ -66,7 +80,7 @@
 		"closedcomponent": {
 			"name": "component.closed.idyll",
 			"begin": "\\[",
-			"end": "/\\]",
+			"end": "\\\/\\]",
 			"patterns": [
 				{
 					"include": "#props"
@@ -79,6 +93,9 @@
 				},
 				{
 					"include": "#numbers"
+				},
+				{
+					"include": "#componentname"
 				}
 			]
 		},
@@ -117,14 +134,14 @@
 			"end": "`",
 			"patterns": [
 				{
-					"include": "source.javascript"
+					"include": "string.quoted.double.idyll"
 				}
 			]
 		},
 		"componentname": {
 			"patterns": [
 				{
-					"match": "([^\\s]*)\\s+[^\\]]*/\\]",
+					"match": "\\[([^\\s]*)\\s+[^\\]]*\\]",
 					"captures": {
 						"1": {
 							"name": "entity.name.tag"
@@ -150,7 +167,7 @@
 			"end": "```",
 			"patterns": [
 				{
-					"include": "source.idyll"
+					"include": "$self"
 				}
 			]
 		}

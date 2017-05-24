@@ -3,7 +3,13 @@
 	"name": "Idyll",
 	"patterns": [
 		{
+			"include": "#closedcomponent"
+		},
+		{
 			"include": "#componentopen"
+		},
+		{
+			"include": "#componentclose"
 		},
 		{
 			"include": "#keywords"
@@ -21,6 +27,30 @@
 				"name": "keyword.control.idyll",
 				"match": "\b(var|data)\b"
 			}]
+		},
+
+		"closedcomponent": {
+			"name": "component.closed.idyll",
+			"begin": "(\\[)([a-zA-Z0-9]+)",
+			"end": "(\\\/\\])",
+			"beginCaputures" : {
+				"1" :{
+					"name": "punctuation.definition.tag.begin.idyll"
+				},
+				"2": {
+					"name": "entity.name.tag.idyll"
+				}
+			},
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.tag.end.idyll"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#idyllattributes"
+				}
+			]
 		},
 		"componentopen": {
 			"name": "component.open.idyll",
@@ -45,6 +75,24 @@
 				}
 			]
 		},
+		"componentclose": {
+			"patterns": [{
+				"name": "component.open.idyll",
+				"match": "(\\[\\\/)([a-zA-Z0-9]+)(\\])",
+				"captures": {
+					"1": {
+						"name": "punctuation.definition.tag.begin.idyll"
+					},
+					"2": {
+						"name": "entity.name.tag.idyll"
+					},
+					"3": {
+						"name": "punctuation.definition.tag.end.idyll"
+					}
+				}
+			}]
+		},
+		
 		"idyllattributes": {
 			"patterns": [
 				{
@@ -57,45 +105,10 @@
 					"include": "#numbers"
 				},
 				{
-					"include": "#componentname"
-				},
-				{
 					"include": "#props"
 				},
 				{
 					"include": "#expression"
-				}
-			]
-		},
-		"componentclose": {
-			"name": "component.open.idyll",
-			"begin": "\\[\\\/",
-			"end": "\\]",
-			"patterns": [
-				{
-					"include": "#componentname"
-				}
-			]
-		},
-		"closedcomponent": {
-			"name": "component.closed.idyll",
-			"begin": "\\[",
-			"end": "\\\/\\]",
-			"patterns": [
-				{
-					"include": "#props"
-				},
-				{
-					"include": "#strings"
-				},
-				{
-					"include": "#expression"
-				},
-				{
-					"include": "#numbers"
-				},
-				{
-					"include": "#componentname"
 				}
 			]
 		},

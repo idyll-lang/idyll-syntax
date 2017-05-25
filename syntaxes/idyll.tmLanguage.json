@@ -18,7 +18,13 @@
 			"include": "#comments"
 		},
 		{
-			"include": "#codeblock"
+			"include": "#headers"
+		},
+		{
+			"include": "#bold"
+		},
+		{
+			"include": "#italics"
 		}
 	],
 	"repository": {
@@ -119,8 +125,8 @@
 					"match": "\\/\\/.*$"
 				},
 				{
-					"begin": "\\\/\\*",
-					"end": "\\*\\\/",
+					"begin": "/\\*",
+					"end": "\\*/",
 					"name": "comment.block.idyll"
 				}
 			]
@@ -175,12 +181,44 @@
 				}
 			]
 		},
-		"codeblock": {
-			"begin": "```",
-			"end": "```",
+		"codeblocks": {
 			"patterns": [
 				{
-					"include": "$self"
+					"begin": "```",
+					"end": "```",
+					"name": "markup.raw.block.idyll"
+				}
+			]
+		},
+		"headers": {
+			"patterns": [
+				{
+					"match": "#{1,6}\\s*[^#]*",
+					"name": "markup.heading.idyll"
+				}
+			]
+		},
+		"bold": {
+			"patterns": [
+				{
+					"match": "(\\*\\*)([^\\s].*[^\\s])(\\*\\*)",
+					"captures": {
+						"2": {
+							"name": "markup.bold"
+						}
+					}	
+				}
+			]
+		},
+		"italics" : {
+			"patterns": [
+				{
+					"match": "(\\*)([^\\s\\*].*[^\\s\\*])(\\*)",
+					"captures": {
+						"2": {
+							"name": "markup.italic"
+						}
+					}
 				}
 			]
 		}

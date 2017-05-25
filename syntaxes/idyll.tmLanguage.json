@@ -3,35 +3,26 @@
 	"name": "Idyll",
 	"patterns": [
 		{
-			"include": "#componentopen"
-		},
-		{
-			"include": "#componentclose"
-		},
-		{
-			"include": "#keywords"
+			"include": "#components"
 		},
 		{
 			"include": "#comments"
 		},
 		{
-			"include": "#headers"
-		},
-		{
-			"include": "#bold"
-		},
-		{
-			"include": "#italics"
+			"include": "#markdowns"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.idyll",
-				"match": "\b(var|data)\b"
-			}]
+		"components": {
+			"patterns": [
+				{
+					"include": "#componentopen"
+				},
+				{
+					"include": "#componentclose"
+				}
+			]
 		},
-
 		"componentopen": {
 			"name": "component.open.idyll",
 			"begin": "(\\[)([a-zA-Z0-9]+)",
@@ -72,36 +63,29 @@
 				}
 			}]
 		},
-		
+
 		"idyllattributes": {
 			"patterns": [
 				{
-					"include": "#strings"
+					"include": "#expressions"
 				},
 				{
-					"include": "#keywords"
+					"include": "#strings"
 				},
 				{
 					"include": "#numbers"
 				},
 				{
 					"include": "#props"
-				},
-				{
-					"include": "#expression"
 				}
 			]
 		},
-		"comments" : {
+		"expressions": {
+			"begin": "`",
+			"end": "`",
 			"patterns": [
 				{
-					"name": "comment.line.double-slash.idyll",
-					"match": "\\/\\/.*$"
-				},
-				{
-					"begin": "/\\*",
-					"end": "\\*/",
-					"name": "comment.block.idyll"
+					"include": "source.js"
 				}
 			]
 		},
@@ -122,27 +106,6 @@
 				"match": "[0-9]\\.?[0-9]?"
 			}]
 		},
-		"expression": {
-			"begin": "`",
-			"end": "`",
-			"patterns": [
-				{
-					"include": "string.quoted.double.idyll"
-				}
-			]
-		},
-		"componentname": {
-			"patterns": [
-				{
-					"match": "\\[([^\\s]*)\\s+[^\\]]*\\]",
-					"captures": {
-						"1": {
-							"name": "entity.name.tag"
-						}
-					}
-				}
-			]
-		},
 		"props": {
 			"patterns": [
 				{
@@ -155,19 +118,44 @@
 				}
 			]
 		},
-		"codeblocks": {
+
+		"comments" : {
 			"patterns": [
 				{
-					"begin": "```",
-					"end": "```",
-					"name": "markup.raw.block.idyll"
+					"name": "comment.line.double-slash.idyll",
+					"match": "\\/\\/.*$"
+				},
+				{
+					"begin": "/\\*",
+					"end": "\\*/",
+					"name": "comment.block.idyll"
+				}
+			]
+		},
+
+		"markdowns": {
+			"patterns": [
+				{
+					"include": "#headers"
+				},
+				{
+					"include": "#bold"
+				},
+				{
+					"include": "#italics"
+				},
+				{
+					"include": "#unnumberedlists"
+				},
+				{
+					"include": "#numberedlists"
 				}
 			]
 		},
 		"headers": {
 			"patterns": [
 				{
-					"match": "#{1,6}\\s*[^#]*",
+					"match": "^#{1,6}\\s*[^#]*",
 					"name": "markup.heading.idyll"
 				}
 			]
@@ -176,11 +164,7 @@
 			"patterns": [
 				{
 					"match": "(\\*\\*)([^\\s].*[^\\s])(\\*\\*)",
-					"captures": {
-						"2": {
-							"name": "markup.bold"
-						}
-					}	
+					"name": "markup.bold"
 				}
 			]
 		},
@@ -188,14 +172,27 @@
 			"patterns": [
 				{
 					"match": "(\\*)([^\\s\\*].*[^\\s\\*])(\\*)",
-					"captures": {
-						"2": {
-							"name": "markup.italic"
-						}
-					}
+					"name": "markup.italic"
+				}
+			]
+		},
+		"unnumberedlists": {
+			"patterns": [
+				{
+					"match": "^\\s*\\*\\s+",
+					"name": "markup.list.unnumbered"
+				}
+			]
+		},
+		"numberedlists": {
+			"patterns": [
+				{
+					"match": "^\\s*\\d+\\.\\s+",
+					"name": "markup.list.numbered"
 				}
 			]
 		}
 	},
+
 	"scopeName": "source.idyll"
 }

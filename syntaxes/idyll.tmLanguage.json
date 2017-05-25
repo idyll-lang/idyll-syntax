@@ -3,9 +3,6 @@
 	"name": "Idyll",
 	"patterns": [
 		{
-			"include": "#closedcomponent"
-		},
-		{
 			"include": "#componentopen"
 		},
 		{
@@ -35,34 +32,11 @@
 			}]
 		},
 
-		"closedcomponent": {
-			"name": "component.closed.idyll",
-			"begin": "(\\[)([a-zA-Z0-9]+)",
-			"end": "(\\\/\\])",
-			"beginCaputures" : {
-				"1" :{
-					"name": "punctuation.definition.tag.begin.idyll"
-				},
-				"2": {
-					"name": "entity.name.tag.idyll"
-				}
-			},
-			"endCaptures": {
-				"1": {
-					"name": "punctuation.definition.tag.end.idyll"
-				}
-			},
-			"patterns": [
-				{
-					"include": "#idyllattributes"
-				}
-			]
-		},
 		"componentopen": {
 			"name": "component.open.idyll",
 			"begin": "(\\[)([a-zA-Z0-9]+)",
-			"end": "(\\])",
-			"beginCaputures" : {
+			"end": "(\/?\\])",
+			"beginCaptures": {
 				"1" :{
 					"name": "punctuation.definition.tag.begin.idyll"
 				},
@@ -83,7 +57,7 @@
 		},
 		"componentclose": {
 			"patterns": [{
-				"name": "component.open.idyll",
+				"name": "component.close.idyll",
 				"match": "(\\[\\\/)([a-zA-Z0-9]+)(\\])",
 				"captures": {
 					"1": {

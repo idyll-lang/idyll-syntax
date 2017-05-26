@@ -3,68 +3,89 @@
 	"name": "Idyll",
 	"patterns": [
 		{
-			"include": "#closedcomponent"
+			"include": "#components"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#markdowns"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.idyll",
-				"match": "\\b(var|data)\\b"
-			}]
+		"components": {
+			"patterns": [
+				{
+					"include": "#componentopen"
+				},
+				{
+					"include": "#componentclose"
+				}
+			]
 		},
 		"componentopen": {
 			"name": "component.open.idyll",
-			"begin": "\\[",
-			"end": "\\]",
+			"begin": "(\\[)([a-zA-Z0-9]+)",
+			"end": "(\/?\\])",
+			"beginCaptures": {
+				"1" :{
+					"name": "punctuation.definition.tag.begin.idyll"
+				},
+				"2": {
+					"name": "entity.name.tag.idyll"
+				}
+			},
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.tag.end.idyll"
+				}
+			},
 			"patterns": [
 				{
-					"include": "#strings"
-				},
-				{
-					"include": "#keywords"
-				},
-				{
-					"include": "#numbers"
-				},
-				{
-					"include": "#componentname"
-				},
-				{
-					"include": "#props"
-				},
-				{
-					"include": "#expression"
+					"include": "#idyllattributes"
 				}
 			]
 		},
 		"componentclose": {
-			"name": "component.open.idyll",
-			"begin": "\\[\\s*/",
-			"end": "\\]",
-			"patterns": [
-				{
-					"include": "#componentname"
+			"patterns": [{
+				"name": "component.close.idyll",
+				"match": "(\\[\\\/)([a-zA-Z0-9]+)(\\])",
+				"captures": {
+					"1": {
+						"name": "punctuation.definition.tag.begin.idyll"
+					},
+					"2": {
+						"name": "entity.name.tag.idyll"
+					},
+					"3": {
+						"name": "punctuation.definition.tag.end.idyll"
+					}
 				}
-			]
+			}]
 		},
 
-		"closedcomponent": {
-			"name": "component.closed.idyll",
-			"begin": "\\[",
-			"end": "/\\]",
+		"idyllattributes": {
 			"patterns": [
 				{
-					"include": "#props"
+					"include": "#expressions"
 				},
 				{
 					"include": "#strings"
 				},
 				{
-					"include": "#expression"
+					"include": "#numbers"
 				},
 				{
-					"include": "#numbers"
+					"include": "#props"
+				}
+			]
+		},
+		"expressions": {
+			"begin": "`",
+			"end": "`",
+			"patterns": [
+				{
+					"include": "source.js"
 				}
 			]
 		},
@@ -85,27 +106,6 @@
 				"match": "[0-9]\\.?[0-9]?"
 			}]
 		},
-		"expression": {
-			"begin": "`",
-			"end": "`",
-			"patterns": [
-				{
-					"include": "source.javascript"
-				}
-			]
-		},
-		"componentname": {
-			"patterns": [
-				{
-					"match": "([^\\s]*)\\s+[^\\]]*/\\]",
-					"captures": {
-						"1": {
-							"name": "entity.name.tag"
-						}
-					}
-				}
-			]
-		},
 		"props": {
 			"patterns": [
 				{
@@ -117,7 +117,82 @@
 					}
 				}
 			]
+		},
+
+		"comments" : {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.idyll",
+					"match": "\\/\\/.*$"
+				},
+				{
+					"begin": "/\\*",
+					"end": "\\*/",
+					"name": "comment.block.idyll"
+				}
+			]
+		},
+
+		"markdowns": {
+			"patterns": [
+				{
+					"include": "#headers"
+				},
+				{
+					"include": "#bold"
+				},
+				{
+					"include": "#italics"
+				},
+				{
+					"include": "#unnumberedlists"
+				},
+				{
+					"include": "#numberedlists"
+				}
+			]
+		},
+		"headers": {
+			"patterns": [
+				{
+					"match": "^#{1,6}\\s*[^#]*",
+					"name": "markup.heading.idyll"
+				}
+			]
+		},
+		"bold": {
+			"patterns": [
+				{
+					"match": "(\\*\\*)([^\\s].*[^\\s])(\\*\\*)",
+					"name": "markup.bold"
+				}
+			]
+		},
+		"italics" : {
+			"patterns": [
+				{
+					"match": "(\\*)([^\\s\\*].*[^\\s\\*])(\\*)",
+					"name": "markup.italic"
+				}
+			]
+		},
+		"unnumberedlists": {
+			"patterns": [
+				{
+					"match": "^\\s*\\*\\s+",
+					"name": "markup.list.unnumbered"
+				}
+			]
+		},
+		"numberedlists": {
+			"patterns": [
+				{
+					"match": "^\\s*\\d+\\.\\s+",
+					"name": "markup.list.numbered"
+				}
+			]
 		}
 	},
+
 	"scopeName": "source.idyll"
 }

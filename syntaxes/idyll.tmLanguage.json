@@ -163,7 +163,11 @@
 		"bold": {
 			"patterns": [
 				{
-					"match": "(\\*\\*)([^\\s].*[^\\s])(\\*\\*)",
+					"match": "\\*\\*[^\\s].*[^\\s]\\*\\*",
+					"name": "markup.bold"
+				},
+				{
+					"match": "__[^\\s].*[^\\s]__",
 					"name": "markup.bold"
 				}
 			]
@@ -171,7 +175,11 @@
 		"italics" : {
 			"patterns": [
 				{
-					"match": "(\\*)([^\\s\\*].*[^\\s\\*])(\\*)",
+					"match": "\\*[^\\s\\*].*[^\\s\\*]\\*",
+					"name": "markup.italic"
+				},
+				{
+					"match": "_[^\\s_].*[^\\s_]_",
 					"name": "markup.italic"
 				}
 			]
